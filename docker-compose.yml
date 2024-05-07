@@ -8,6 +8,7 @@ services:
        - '80:80'
        - '81:81'
        - '443:443'
+       - '8080-8090:8080-8090'
      volumes:
        - nginx:/data
        - ./data/letsencrypt/letsencrypt:/etc/letsencrypt
@@ -53,7 +54,7 @@ services:
    container_name: influxdb
    restart: always
    ports:
-     - 8086
+     - "8086"
    volumes:
      - influxdb:/var/lib/influxdb2
      - influxdb:/etc/influxdb2
