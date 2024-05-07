@@ -1,0 +1,75 @@
+version: '3'
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+
+  api:
+    image: 'norbye93/apiapp:latest'
+    restart: 'unless-stopped'
+    volumes:
+      - ./api:/api
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://admin:3d6768c7@db:5432/iot
+  
+  db:
+   image: postgres:latest
+   volumes:
+     - ./db-data:/mydatabase
+   ports:
+     - "5432:5432"
+   restart: always
+   environment:
+     - POSTGRES_PASSWORD=3d6768c7
+     - POSTGRES_USER=admin  
+     - POSTGRES_DB=iot
+
+  mosquitto:
+   image: eclipse-mosquitto:latest
+   container_name: mosquitto
+   ports:
+     - "1883:1883"
+     - "9001:9001"
+   volumes:
+     - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  influxdb:
+   image: influxdb
+   container_name: influxdb
+   restart: always
+   ports:
+     - "8086:8086"
+   volumes:
+     - influxdb-data:/var/lib/influxdb2
+     - influxdb-config:/etc/influxdb2
+   environment:
+     - DOCKER_INFLUXDB_INIT_MODE=setup
+     - DOCKER_INFLUXDB_INIT_USERNAME=Ole
+     - DOCKER_INFLUXDB_INIT_PASSWORD=password1234
+     - DOCKER_INFLUXDB_INIT_ORG=Northei
+     - DOCKER_INFLUXDB_INIT_BUCKET=iot
+     - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=4eYvsu8wZCJ6tKuE2sxvFHkvYFwSMVK0011hEEiojvejzpSaij86vYQomN_12au6eK-2MZ6Knr-Sax201y70w==   
+
+
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    restart: always
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    depends_on:
+      - mosquitto
+      - influxdb
+
+volumes:
+  influxdb-data:
+  influxdb-config:
