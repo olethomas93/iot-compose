@@ -53,7 +53,7 @@ services:
    container_name: influxdb
    restart: always
    ports:
-     - "8086:8086"
+     - 8086
    volumes:
      - influxdb:/var/lib/influxdb2
      - influxdb:/etc/influxdb2
