@@ -33,6 +33,7 @@ services:
       - api:/api
     depends_on:
       - db
+      - redis
     env_file:
       - .env.api
 
@@ -97,6 +98,7 @@ services:
   
   redis:
     image: redis:latest
+    container_name: redis
     restart: always
     networks:
       - backend
