@@ -17,8 +17,8 @@ services:
     image: 'norbye93/api:latest'
     container_name: 'api'
     restart: 'unless-stopped'
-    ports:
-      - "8090"
+    expose:
+      - 8090
     volumes:
       - api:/api
     depends_on:
@@ -53,8 +53,8 @@ services:
    privileged: true
    container_name: influxdb
    restart: always
-   ports:
-     - "8086"
+   expose:
+     - 8086
    volumes:
      - influxdb:/var/lib/influxdb2
      - influxdb:/etc/influxdb2
