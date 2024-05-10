@@ -39,6 +39,17 @@ services:
       - redis
     env_file:
       - .env.api
+  api_dep:
+    image: 'norbye93/apiapp:latest'
+    restart: 'unless-stopped'
+    networks:
+      - backend
+    volumes:
+      - api-dep:/api-dep
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://admin:3d6768c7@db:5432/iot
 
   db:
    image: postgres:latest
@@ -117,3 +128,4 @@ volumes:
   nginx:
   api:
   postgres:
+  api-dep:
