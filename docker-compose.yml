@@ -41,6 +41,7 @@ services:
       - .env.api
   api_dep:
     image: 'norbye93/apiapp:latest'
+    container_name: api-dep
     restart: 'unless-stopped'
     networks:
       - backend
