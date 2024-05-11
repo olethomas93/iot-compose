@@ -42,7 +42,7 @@ services:
   api_dep:
     image: 'norbye93/apiapp:latest'
     container_name: api-dep
-    restart: 'always'
+    restart: always
     networks:
       - backend
     expose:
