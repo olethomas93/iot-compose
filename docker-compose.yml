@@ -9,7 +9,7 @@ services:
 
   nginx:
      image: 'jc21/nginx-proxy-manager:latest'
-     restart: unless-stopped
+     restart: always
      depends_on:
       - redis
       - db
@@ -27,7 +27,7 @@ services:
   api:
     image: 'norbye93/api:latest'
     container_name: 'api'
-    restart: 'unless-stopped'
+    restart: always'
     networks:
       - backend
     expose:
@@ -42,7 +42,7 @@ services:
   api_dep:
     image: 'norbye93/apiapp:latest'
     container_name: api-dep
-    restart: 'unless-stopped'
+    restart: 'always'
     networks:
       - backend
     expose:
@@ -71,6 +71,7 @@ services:
   mosquitto:
    image: eclipse-mosquitto:latest
    container_name: mosquitto
+   restart: always
    networks:
     - backend
    ports:
