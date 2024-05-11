@@ -20,7 +20,6 @@ services:
        - '81:81'
        - '443:443'
        - '8070-8080:8070-8080'
-       - '1883:1883'
      volumes:
        - nginx:/data
        - ./data/letsencrypt/letsencrypt:/etc/letsencrypt
@@ -74,6 +73,8 @@ services:
    container_name: mosquitto
    networks:
     - backend
+   ports:
+     - "1883:1883"
    expose:
      - 1883
      - 9001
