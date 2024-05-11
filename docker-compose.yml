@@ -88,8 +88,6 @@ services:
    restart: always
    networks:
     - backend
-   ports:
-     - "8086:8086"
    expose:
      - 8086
    volumes:
@@ -122,8 +120,8 @@ services:
     restart: always
     networks:
       - backend
-    ports:
-      - "6379:6379"
+    expose:
+      - 6379
    
     
 
