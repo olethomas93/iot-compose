@@ -75,9 +75,7 @@ services:
     - backend
    ports:
      - "1883:1883"
-   expose:
-     - 1883
-     - 9001
+  
    volumes:
      - ./data/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
      - ./data/mosquitto/passwd:/mosquitto/config/passwd
