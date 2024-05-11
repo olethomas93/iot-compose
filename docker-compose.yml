@@ -27,7 +27,7 @@ services:
   api:
     image: 'norbye93/api:latest'
     container_name: 'api'
-    restart: always'
+    restart: always
     networks:
       - backend
     expose:
