@@ -74,10 +74,10 @@ services:
   nanomq:
     image: emqx/nanomq:latest
     container_name: nanomq
-    ports:
-      - "1883:1883"
-    # expose:
-    #   - 1883
+    # ports:
+    #   - "1883:1883"
+    expose:
+      - 1883
     networks:
       - backend
     volumes:
@@ -85,20 +85,20 @@ services:
     restart: unless-stopped
 
 
-  mosquitto:
-   image: eclipse-mosquitto:latest
-   container_name: mosquitto
-   restart: always
-   networks:
-    - backend
-  #  ports:
-  #    - "1883:1883"
-   expose:
-     - 1884
-  
-   volumes:
-     - ./data/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-     - ./data/mosquitto/passwd:/mosquitto/config/passwd
+  # mosquitto:
+  #  image: eclipse-mosquitto:latest
+  #  container_name: mosquitto
+  #  restart: always
+  #  networks:
+  #   - backend
+  # #  ports:
+  # #    - "1883:1883"
+  #  expose:
+  #    - 1883
+
+  #  volumes:
+  #    - ./data/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+  #    - ./data/mosquitto/passwd:/mosquitto/config/passwd
 
   influxdb:
    image: influxdb:latest
@@ -132,7 +132,7 @@ services:
     depends_on:
       - nanomq
       - influxdb
-  
+
   redis:
     image: redis:latest
     container_name: redis
@@ -141,10 +141,10 @@ services:
       - backend
     expose:
       - 6379
-   
-    
 
-    
+
+
+
 volumes:
   influxdb:
   telegraf:
