@@ -19,7 +19,6 @@ services:
        - '80:80'
        - '81:81'
        - '443:443'
-       - '1883:1883'
        - '8070-8080:8070-8080'
      volumes:
        - nginx:/data
@@ -75,10 +74,10 @@ services:
   nanomq:
     image: emqx/nanomq:latest
     container_name: nanomq
-    # ports:
-    #   - "1883:1883"
-    expose:
-      - 1883
+    ports:
+      - "1883:1883"
+    # expose:
+    #   - 1883
     networks:
       - backend
     volumes:
