@@ -74,10 +74,10 @@ services:
   nanomq:
     image: emqx/nanomq:latest
     container_name: nanomq
-    ports:
-      - "1883:1883"
-    # expose:
-    #   - 1883
+    # ports:
+    #   - "1883:1883"
+    expose:
+      - 1883
     networks:
       - backend
     volumes:
