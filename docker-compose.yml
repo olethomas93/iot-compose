@@ -20,6 +20,7 @@ services:
        - '81:81'
        - '443:443'
        - '8070-8080:8070-8080'
+       - '1883'
      volumes:
        - nginx:/data
        - ./data/letsencrypt/letsencrypt:/etc/letsencrypt
@@ -78,7 +79,8 @@ services:
       - "8883:8883"
       - "8083:8083"
       - "8084:8084"
-      - "1883:1884"
+    expose:
+      - 1884
 
     networks:
       - backend
