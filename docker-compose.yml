@@ -76,6 +76,8 @@ services:
   nanomq:
     image: emqx/nanomq:latest
     container_name: nanomq
+    depends_on:
+      - nginx
     ports:
       - "8883:8883"
       - "8083:8083"
